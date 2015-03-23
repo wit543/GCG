@@ -5,12 +5,10 @@ var GameLayer = cc.LayerColor.extend({
     init:function(){
         this._super(new cc.Color(127,127,127));
         this.setPosition(new cc.Point(0,0));
-        this.pol = new Polegon();
-        this.pol.setPosition(cc.p(200,200));
-        this.addChild(this.pol);
+        this.createBlocks();
         //console.log(test.getPosition());
-        this.player = new Player();
-        this.player.setPosition(new cc.p(200,800));
+        this.player = new Player(200,600);
+        this.player.setBlocks(this.blocks);
         this.addChild(this.player);
         this.player.scheduleUpdate();
         this.scheduleUpdate();
@@ -21,6 +19,14 @@ var GameLayer = cc.LayerColor.extend({
         if(!CollisionDetection.checkCollision(this.player,this.pol)){
             this.player.canMove=false;
         }
+    },
+    createBlocks:function(){
+        this.blocks=[];
+        this.blocks.push(new Polegon(200,200,250,250));
+
+        this.blocks.forEach(function(b){
+            this.addChild(b);
+        },this);
     }
 });
 
