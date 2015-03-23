@@ -15,6 +15,7 @@
       "src/GameLayer.js",
       "src/StaticObject.js",
       "src/Player.js",
-      "src/Physic.js"
+      "src/Physic.js",
+      "src/UnitTest.js"
     ]
 }
