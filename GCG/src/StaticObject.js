@@ -29,9 +29,12 @@ var Polegon = cc.Sprite.extend({
     hitRight:function(oldRect,newRect){
         var brect = this.getBoundingBoxToWorld();
         if(cc.rectGetMinX(oldRect)>=cc.rectGetMaxY(brect)){
-            var
+            var leftedNewRect = cc.rect(newRect.x-1,newRect.y,newRect.width+1,newRect.height);
+            var uRect = cc.rectUnion(uRect,brect);
+            return cc.rectIntersectsRect(uRect,brect);
         }
-    }
+        return false;
+    },
     onTop:function(rect){
         var brect = this.getBoundingBoxToWorld();
         var bminx = cc.rectGetMinX(brect);

@@ -125,6 +125,9 @@ var Player = cc.Sprite.extend({
             }
         }
     },
+    findRightBlock:function(blocks,oldRect,newRect){
+        
+    },
     findTopBlock:function(blocks,oldRect,newRect){
         var topBlock = null;
         var topBlockY = -1;
