@@ -8,18 +8,30 @@ var Polegon = cc.Sprite.extend({
     getTopY:function(){
         return cc.rectGetMaxY(this.getBoundingBoxToWorld());
     },
-    getTopX:function(){
+    getRightX:function(){
         return cc.rectGetMaxX(this.getBoundingBoxToWorld());
+    },
+    getBottomY:function(){
+        return cc.rectGetMinY(this.getBoundingBoxToWorld());
+    },
+    getLeftX:function(){
+        return cc.rectGetMinX(this.getBoundingBoxToWorld());
     },
     hitTop: function(oldRect, newRect){
         var brect = this.getBoundingBoxToWorld();
         if(cc.rectGetMinY(oldRect)>= cc.rectGetMaxY(brect)){
             var loweredNewRect = cc.rect(newRect.x,newRect.y-1,newRect.width,newRect.height+1);
             var uRect = cc.rectUnion(oldRect,loweredNewRect);
-            return cc.rectIntersection(uRect,brect);
+            return cc.rectIntersectsRect(uRect,brect);
         }
         return false;
     },
+    hitRight:function(oldRect,newRect){
+        var brect = this.getBoundingBoxToWorld();
+        if(cc.rectGetMinX(oldRect)>=cc.rectGetMaxY(brect)){
+            var
+        }
+    }
     onTop:function(rect){
         var brect = this.getBoundingBoxToWorld();
         var bminx = cc.rectGetMinX(brect);
