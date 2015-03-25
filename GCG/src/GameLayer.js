@@ -22,31 +22,33 @@ var GameLayer = cc.LayerColor.extend({
         }
     },
     createBlocks:function(){
-        this.blocks=[];
-        this.blocks.push(new Polegon(600,350,650,400));
-        this.blocks.push(new Polegon(650,300,700,350));
-        this.blocks.push(new Polegon(700,350,750,400));
-        this.blocks.push(new Polegon(700,300,750,350));
-        this.blocks.push(new Polegon(700,250,750,300));
-        this.blocks.push(new Polegon(700,200,750,250));
-        this.blocks.push(new Polegon(650,200,700,250));
-        this.blocks.push(new Polegon(600,200,650,250));
-        this.blocks.push(new Polegon(550,200,600,250));
-        this.blocks.push(new Polegon(500,200,550,250));
-        this.blocks.push(new Polegon(450,200,500,250));
-        this.blocks.push(new Polegon(400,200,450,250));
-        this.blocks.push(new Polegon(350,200,400,250));
-        this.blocks.push(new Polegon(300,200,350,250));
-        this.blocks.push(new Polegon(250,200,300,250));
-        this.blocks.push(new Polegon(200,200,250,250));
-        this.blocks.push(new Polegon(250,250,250,300));
-        this.blocks.push(new Polegon(150,200,200,250));
-        this.blocks.push(new Polegon(100,250,150,300));
-        this.blocks.push(new Polegon(50,200,100,250));
-        this.blocks.push(new Polegon(100,200,150,250));
-        this.blocks.forEach(function(b){
-            this.addChild(b);
-        },this);
+        var map = new Map();
+        this.blocks=map.blocks;
+        //this.blocks.push(new Polegon(600,350,650,400));
+        //this.blocks.push(new Polegon(650,300,700,350));
+        //this.blocks.push(new Polegon(700,350,750,400));
+        //this.blocks.push(new Polegon(700,300,750,350));
+        //this.blocks.push(new Polegon(700,250,750,300));
+        //this.blocks.push(new Polegon(700,200,750,250));
+        //this.blocks.push(new Polegon(650,200,700,250));
+        //this.blocks.push(new Polegon(600,200,650,250));
+        //this.blocks.push(new Polegon(550,200,600,250));
+        //this.blocks.push(new Polegon(500,200,550,250));
+        //this.blocks.push(new Polegon(450,200,500,250));
+        //this.blocks.push(new Polegon(400,200,450,250));
+        //this.blocks.push(new Polegon(350,200,400,250));
+        //this.blocks.push(new Polegon(300,200,350,250));
+        //this.blocks.push(new Polegon(250,200,300,250));
+        //this.blocks.push(new Polegon(200,200,250,250));
+        //this.blocks.push(new Polegon(250,250,250,300));
+        //this.blocks.push(new Polegon(150,200,200,250));
+        //this.blocks.push(new Polegon(100,250,150,300));
+        //this.blocks.push(new Polegon(50,200,100,250));
+        //this.blocks.push(new Polegon(100,200,150,250));
+        //this.blocks.forEach(function(b){
+        //    this.addChild(b);
+        //},this);
+        this.addChild(map);
     },
 
     onKeyDown: function( keyCode, event ) {

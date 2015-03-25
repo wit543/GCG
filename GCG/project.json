@@ -16,6 +16,7 @@
       "src/StaticObject.js",
       "src/Player.js",
       "src/Physic.js",
-      "src/UnitTest.js"
+      "src/UnitTest.js",
+      "src/Map.js"
     ]
 }
