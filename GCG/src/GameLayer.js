@@ -27,6 +27,8 @@ var GameLayer = cc.LayerColor.extend({
         this.blocks.push(new Polegon(250,250,250,300));
         this.blocks.push(new Polegon(150,200,200,250));
         this.blocks.push(new Polegon(100,250,150,300));
+        this.blocks.push(new Polegon(50,200,100,250));
+        this.blocks.push(new Polegon(100,200,150,250));
         this.blocks.forEach(function(b){
             this.addChild(b);
         },this);

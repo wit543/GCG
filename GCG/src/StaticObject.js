@@ -28,10 +28,25 @@ var Polegon = cc.Sprite.extend({
     },
     hitRight:function(oldRect,newRect){
         var brect = this.getBoundingBoxToWorld();
-        if(cc.rectGetMinX(oldRect)>=cc.rectGetMaxY(brect)){
-            var leftedNewRect = cc.rect(newRect.x-1,newRect.y,newRect.width+1,newRect.height);
-            var uRect = cc.rectUnion(uRect,brect);
-            return cc.rectIntersectsRect(uRect,brect);
+        if(cc.rectGetMinX(oldRect)>=cc.rectGetMaxX(brect)) {
+            var leftedNewRect = cc.rect(newRect.x - 1, newRect.y, newRect.width + 1, newRect.height);
+            var uRect = cc.rectUnion(oldRect, leftedNewRect);
+            var newBrect = cc.rect(brect.x,brect.y,brect.width,brect.height-1);
+            return cc.rectIntersectsRect(uRect, newBrect);
+        }
+        return false;
+    },
+    hitLeft:function(oldRect,newRect){
+        var brect = this.getBoundingBoxToWorld();
+        if(cc.rectGetMaxX(oldRect)>=cc.rectGetMinX(brect)) {
+            var rightedNewRect = cc.rect(newRect.x, newRect.y, newRect.width + 1, newRect.height);
+            var uRect = cc.rectUnion(oldRect, rightedNewRect);
+            var newBrect = cc.rect(brect.x,brect.y,brect.width,brect.height-1);
+            if(cc.rectIntersectsRect(uRect, newBrect)){
+                console.log(uRect);
+                console.log(brect);
+                return true;
+            }
         }
         return false;
     },
@@ -42,5 +57,13 @@ var Polegon = cc.Sprite.extend({
         var minx = cc.rectGetMinX(rect);
         var maxx = cc.rectGetMaxX(rect);
         return (minx <= bmaxx)&& (bminx <= maxx);
+    },
+    onRight: function (rect) {
+        var brect = this.getBoundingBoxToWorld();
+        var bminx = cc.rectGetMinX(brect);
+        var bmaxx = cc.rectGetMaxX(brect);
+        var minx = cc.rectGetMinX(rect);
+        var maxx = cc.rectGetMaxX(rect);
+        return false;
     }
 });

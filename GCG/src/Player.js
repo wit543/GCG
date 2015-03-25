@@ -25,6 +25,9 @@ var Player = cc.Sprite.extend({
         this.jump = false;
 
         this.ground =null;
+        this.leftSilde = null;
+        this.ceiling = null;
+        this.rightSide = null;
         this.blocks = [];
         this.updateSpritePosition();
     },
@@ -57,6 +60,7 @@ var Player = cc.Sprite.extend({
                 this.accelerateX(-1);
             }
         }
+
         this.x+=this.vx;
         if(this.x<0){
             this.x +=screenWidth;
@@ -110,9 +114,9 @@ var Player = cc.Sprite.extend({
     },
     handleCollision:function(oldRect,newRect){
         if(this.ground){
-            if(!this.ground.onTop(newRect)){
+            //if(!this.ground.onTop(newRect)){
                 this.ground = null;
-            }
+            //}
         }
         else{
             if(this.vy<=0){
@@ -123,11 +127,53 @@ var Player = cc.Sprite.extend({
                     this.vy =0;
                 }
             }
+
+        }
+        if(this.leftSilde){
+            //if(!this.leftSilde.onRight()){
+                this.leftSilde=null;
+            //}
+        }
+        else{
+            if(this.vx<=0){
+
+                var rightBlock = this.findRightBlock(this.blocks,oldRect,newRect);
+                if(rightBlock){
+                    this.leftSilde = rightBlock;
+                    this.x =rightBlock.getRightX();
+                    this.vx=0;
+                }
+            }
         }
     },
     findRightBlock:function(blocks,oldRect,newRect){
-        
+        var rightBlock = null;
+        var rightBlockX = 1;
+        blocks.forEach(function(b){
+            if(b.hitRight(oldRect,newRect)){
+                if(b.getRightX()>rightBlockX){
+
+                    rightBlock = b;
+                    rightBlockX = b.getRightX();
+                }
+            }
+        },this);
+        return rightBlock;
     },
+    findLeftBlock:function(blocks,oldRect,newRect){
+        var rightBlock = null;
+        var rightBlockX = -1;
+        blocks.forEach(function(b){
+            if(b.hitleft(oldRect,newRect)){
+                if(b.getLeftX()>rightBlockX){
+
+                    rightBlock = b;
+                    rightBlockX = b.getRightX();
+                }
+            }
+        },this);
+        return rightBlock;
+    }
     findTopBlock:function(blocks,oldRect,newRect){
         var topBlock = null;
         var topBlockY = -1;
@@ -142,6 +188,7 @@ var Player = cc.Sprite.extend({
         },this);
         return topBlock;
     },
+
     handleKeyDown:function(keyCode){
         if(Player.KEYMAP[keyCode]!=undefined){
             this[Player.KEYMAP[keyCode]]=true;
