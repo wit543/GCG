@@ -13,8 +13,8 @@ var Player = cc.Sprite.extend({
         this.maxVx =15;
         this.accX =.50;
         this.backAccX =0.25;
-        this.jumpV = 20;
-        this.g =-.25;
+        this.jumpV = 15;
+        this.g =-.75;
 
         this.vx =0;
         this.vy =0;
@@ -34,7 +34,7 @@ var Player = cc.Sprite.extend({
     updateSpritePosition:function(){
         this.setPosition(cc.p(Math.round(this.x),Math.round(this.y)));
     },
-    getPlayerRRect:function(){
+    getPlayerRect:function(){
         var spriteRect =this.getBoundingBoxToWorld();
         var spritePos = this.getPosition();
 
@@ -43,22 +43,20 @@ var Player = cc.Sprite.extend({
         return cc.rect(spriteRect.x+dX,spriteRect.y+dY,spriteRect.width,spriteRect.height);
     },
     update:function() {
-        var currentPositionRect = this.getPlayerRRect();
+        var currentPositionRect = this.getPlayerRect();
         this.updateYMovement();
         this.updateXMovement();
-        var newPositionRect = this.getPlayerRRect();
+        var newPositionRect = this.getPlayerRect();
         this.handleCollision(currentPositionRect,newPositionRect);
         this.updateSpritePosition();
     },
     updateXMovement:function(){
-        if(this.ground){
-            if((!this.moveLeft)&&(!this.moveRight)){
-                this.autoDeaccelerateX();
-            }else if (this.moveRight){
-                this.accelerateX(1);
-            }else{
-                this.accelerateX(-1);
-            }
+        if((!this.moveLeft)&&(!this.moveRight)){
+            this.autoDeaccelerateX();
+        }else if (this.moveRight){
+            this.accelerateX(1);
+        }else{
+            this.accelerateX(-1);
         }
 
         this.x+=this.vx;
@@ -72,6 +70,7 @@ var Player = cc.Sprite.extend({
     updateYMovement:function(){
         if(this.ground){
             this.vy=0;
+
             if(this.jump){
                 this.vy=this.jumpV;
                 this.y=this.ground.getTopY()+this.vy;
@@ -127,22 +126,33 @@ var Player = cc.Sprite.extend({
                     this.vy =0;
                 }
             }
+            else{
+                var bottomblock = this.findBottomBlock(this.blocks,oldRect, newRect);
+                if(bottomblock){
+                    this.ceiling = bottomblock;
+                    this.y= bottomblock.getBottomY()-this.getPlayerRect().height;
+                    this.vy =0;
+                }
+            }
 
         }
-        if(this.leftSilde){
-            //if(!this.leftSilde.onRight()){
-                this.leftSilde=null;
-            //}
+
+        if(this.vx<=0){
+            this.leftSilde=null;
+            var rightBlock = this.findRightBlock(this.blocks,oldRect,newRect);
+            if(rightBlock){
+                this.leftSilde = rightBlock;
+                this.x =rightBlock.getRightX();
+                this.vx=0;
+            }
         }
         else{
-            if(this.vx<=0){
-
-                var rightBlock = this.findRightBlock(this.blocks,oldRect,newRect);
-                if(rightBlock){
-                    this.leftSilde = rightBlock;
-                    this.x =rightBlock.getRightX();
-                    this.vx=0;
-                }
+            this.rightSilde=null;
+            var leftBlock = this.findLeftBlock(this.blocks,oldRect,newRect);
+            if(leftBlock){
+                this.rightSilde = leftBlock;
+                this.x =leftBlock.getLeftX()-this.getPlayerRect().width;
+                this.vx=0;
             }
         }
     },
@@ -152,7 +162,6 @@ var Player = cc.Sprite.extend({
         blocks.forEach(function(b){
             if(b.hitRight(oldRect,newRect)){
                 if(b.getRightX()>rightBlockX){
-
                     rightBlock = b;
                     rightBlockX = b.getRightX();
                 }
@@ -161,19 +170,32 @@ var Player = cc.Sprite.extend({
         return rightBlock;
     },
     findLeftBlock:function(blocks,oldRect,newRect){
-        var rightBlock = null;
-        var rightBlockX = -1;
+        var leftBlock = null;
+        var leftBlockX = -1;
         blocks.forEach(function(b){
-            if(b.hitleft(oldRect,newRect)){
-                if(b.getLeftX()>rightBlockX){
-
-                    rightBlock = b;
-                    rightBlockX = b.getRightX();
+            if(b.hitLeft(oldRect,newRect)){
+                if(b.getLeftX()>leftBlockX){
+                    leftBlock = b;
+                    leftBlockX = b.getLeftX();
                 }
             }
         },this);
-        return rightBlock;
-    }
+        return leftBlock;
+    },
+    findBottomBlock:function(blocks,oldRect,newRect){
+        var bottomBlock = null;
+        var bottomBlockY = 1;
+
+        blocks.forEach(function(b){
+            if(b.hitBottom(oldRect,newRect)){
+                if(b.getBottomY()>bottomBlockY){
+                    bottomBlockY = b.getTopY();
+                    bottomBlock =b;
+                }
+            }
+        },this);
+        return bottomBlock;
+    },
     findTopBlock:function(blocks,oldRect,newRect){
         var topBlock = null;
         var topBlockY = -1;
@@ -207,4 +229,4 @@ var Player = cc.Sprite.extend({
 Player.KEYMAP= {}
 Player.KEYMAP[cc.KEY.left]= 'moveLeft';
 Player.KEYMAP[cc.KEY.right]= 'moveRight';
-Player.KEYMAP[cc.KEY.up]='junp';
+Player.KEYMAP[cc.KEY.up]='jump';
