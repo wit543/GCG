@@ -18,7 +18,7 @@ var Map =cc.Node.extend({
             "................",
             ".......#........",
             "........##......",
-            ".#..#....#......",
+            ".#..#....#.....F",
             "################",
             "................",
             "................",
@@ -27,16 +27,23 @@ var Map =cc.Node.extend({
         ];
         this.initMaze();
     },
-    initMaze:function(){
-        for(var r = 0;r < this.height;r++){
-            for(var c = 0;c< this.width;c++){
-                if(this.MAP[r][c]=="#"){
-                    console.log((this.height-r-1));
-                    var currentPolegon = new Polegon(c*50,(this.height-r-1)*50,c*50+50,(this.height-r-1)*50+50);
-                    this.blocks.push(currentPolegon);
-                    this.addChild(currentPolegon);
+    initMaze:function() {
+        for (var r = 0; r < this.height; r++) {
+            for (var c = 0; c < this.width; c++) {
+                var currentCell = this.MAP[r][c];
+                if (currentCell == "#") {
+                    console.log((this.height - r - 1));
+                    this.addObjrctToMap(new Polegon(c * 50, (this.height - r - 1) * 50, c * 50 + 50, (this.height - r - 1) * 50 + 50));
+
+                }
+                else if (currentCell == "F") {
+                    this.addChild(new Flag(c*50,(this.height-r-1)*50));
                 }
             }
         }
+    },
+    addObjrctToMap:function(object){
+        this.blocks.push(object);
+        this.addChild(object);
     }
 });

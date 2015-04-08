@@ -12,8 +12,18 @@ var GameLayer = cc.LayerColor.extend({
         this.addChild(this.player);
         this.player.scheduleUpdate();
         this.addKeyboardHandlers();
+        this.addMouseHandlers();
+     //   this.addChild(new Polegon(350,256,50,63));
+        this.addChild(new Polegon(531,300,48,49));
         this.scheduleUpdate();
+        this.initLabel();
         return true;
+    },
+    initLabel:function(){
+        this.scoreLabel = cc.LabelTTF.create( '0', 'Arial', 40 );
+        this.scoreLabel.setPosition( new cc.Point( 750, 550 ) );
+        this.addChild( this.scoreLabel );
+        this.scoreLabel.setString("00");
     },
     update:function(){
         console.log();
@@ -21,33 +31,10 @@ var GameLayer = cc.LayerColor.extend({
             this.player.canMove=false;
         }
     },
+
     createBlocks:function(){
         var map = new Map();
         this.blocks=map.blocks;
-        //this.blocks.push(new Polegon(600,350,650,400));
-        //this.blocks.push(new Polegon(650,300,700,350));
-        //this.blocks.push(new Polegon(700,350,750,400));
-        //this.blocks.push(new Polegon(700,300,750,350));
-        //this.blocks.push(new Polegon(700,250,750,300));
-        //this.blocks.push(new Polegon(700,200,750,250));
-        //this.blocks.push(new Polegon(650,200,700,250));
-        //this.blocks.push(new Polegon(600,200,650,250));
-        //this.blocks.push(new Polegon(550,200,600,250));
-        //this.blocks.push(new Polegon(500,200,550,250));
-        //this.blocks.push(new Polegon(450,200,500,250));
-        //this.blocks.push(new Polegon(400,200,450,250));
-        //this.blocks.push(new Polegon(350,200,400,250));
-        //this.blocks.push(new Polegon(300,200,350,250));
-        //this.blocks.push(new Polegon(250,200,300,250));
-        //this.blocks.push(new Polegon(200,200,250,250));
-        //this.blocks.push(new Polegon(250,250,250,300));
-        //this.blocks.push(new Polegon(150,200,200,250));
-        //this.blocks.push(new Polegon(100,250,150,300));
-        //this.blocks.push(new Polegon(50,200,100,250));
-        //this.blocks.push(new Polegon(100,200,150,250));
-        //this.blocks.forEach(function(b){
-        //    this.addChild(b);
-        //},this);
         this.addChild(map);
     },
 
@@ -70,7 +57,37 @@ var GameLayer = cc.LayerColor.extend({
                 self.onKeyUp( keyCode, event );
             }
         }, this);
-    }
+    },
+    addObject:function(){
+        var poly = new Polegon(100,100,150,150);
+        this.blocks.push(poly);
+        this.addChild(poly);
+    },
+    addMouseHandlers:function(){
+        var self = this;
+        cc.eventManager.addListener({
+            event: cc.EventListener.MOUSE,
+            onMouseMove: function(event){
+                var str = "MousePosition X: " + event.getLocationX() + "  Y:" + event.getLocationY();
+                //console.log(str);
+            },
+            onMouseUp: function(event){
+                var str = "Mouse Up detected, Key: " + event.getButton();
+                console.log(str);
+            },
+            onMouseDown: function(event){
+                var str = "Mouse Down detected, Key: " + event.getButton();
+                self.addObject();
+                console.log(str);
+            },
+            onMouseScroll: function(event){
+                var str = "Mouse Scroll detected, X: " + event.getLocationX() + "  Y:" + event.getLocationY();
+                console.log(str);
+            }
+        },this);
+    },
+
+
 });
 
 var StartScene = cc.Scene.extend({

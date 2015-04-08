@@ -11,7 +11,7 @@ Gravity.CON={
 var CollisionDetection ={
     checkCollision:function(player,object){
         var playerPoint = this.getQuadrilateralsColisionPoint(player);
-        var objectPoint = this.getQuadrilateralsColisionPoint(object)
+        var objectPoint = this.getQuadrilateralsColisionPoint(object);
         for(var i=0;i<playerPoint.length;i++){
             var c = false;
             for(var j=0;j<objectPoint.length;j++){

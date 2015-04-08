@@ -31,9 +31,11 @@ var Player = cc.Sprite.extend({
         this.blocks = [];
         this.updateSpritePosition();
     },
+
     updateSpritePosition:function(){
         this.setPosition(cc.p(Math.round(this.x),Math.round(this.y)));
     },
+
     getPlayerRect:function(){
         var spriteRect =this.getBoundingBoxToWorld();
         var spritePos = this.getPosition();
@@ -42,14 +44,18 @@ var Player = cc.Sprite.extend({
         var dY = this.y - spritePos.y;
         return cc.rect(spriteRect.x+dX,spriteRect.y+dY,spriteRect.width,spriteRect.height);
     },
+
     update:function() {
-        var currentPositionRect = this.getPlayerRect();
-        this.updateYMovement();
-        this.updateXMovement();
-        var newPositionRect = this.getPlayerRect();
-        this.handleCollision(currentPositionRect,newPositionRect);
-        this.updateSpritePosition();
+        if(!this.isDead()){
+            var currentPositionRect = this.getPlayerRect();
+            this.updateYMovement();
+            this.updateXMovement();
+            var newPositionRect = this.getPlayerRect();
+            this.handleCollision(currentPositionRect,newPositionRect);
+            this.updateSpritePosition();
+        }
     },
+
     updateXMovement:function(){
         if((!this.moveLeft)&&(!this.moveRight)){
             this.autoDeaccelerateX();
@@ -67,6 +73,7 @@ var Player = cc.Sprite.extend({
             this.x-=screenWidth;
         }
     },
+
     updateYMovement:function(){
         if(this.ground){
             this.vy=0;
@@ -74,16 +81,18 @@ var Player = cc.Sprite.extend({
             if(this.jump){
                 this.vy=this.jumpV;
                 this.y=this.ground.getTopY()+this.vy;
-                this.ground = null
+                this.ground = null;
             }
         }else{
             this.vy +=this.g;
             this.y+=this.vy;
         }
     },
+
     isSameDirection:function(dir){
         return (((this.vx>=0)&&(dir>=0)) || (this.vx<=0)&&(dir<=0));
     },
+
     accelerateX:function(dir){
         if(this.isSameDirection((dir))){
             this.vx+= dir*this.accX;
@@ -100,6 +109,7 @@ var Player = cc.Sprite.extend({
             }
         }
     },
+
     autoDeaccelerateX: function(){
         if(Math.abs(this.vx)<this.accX){
             this.vx=0;
@@ -111,30 +121,24 @@ var Player = cc.Sprite.extend({
             this.vx += this.accX;
         }
     },
+
     handleCollision:function(oldRect,newRect){
-        if(this.ground){
-            //if(!this.ground.onTop(newRect)){
-                this.ground = null;
-            //}
+        this.ground=null;
+        if(this.vy<=0){
+            var topBlock = this.findTopBlock(this.blocks,oldRect, newRect);
+            if(topBlock){
+                this.ground = topBlock;
+                this.y= topBlock.getTopY();
+                this.vy =0;
+            }
         }
         else{
-            if(this.vy<=0){
-                var topBlock = this.findTopBlock(this.blocks,oldRect, newRect);
-                if(topBlock){
-                    this.ground = topBlock;
-                    this.y= topBlock.getTopY();
-                    this.vy =0;
-                }
+            var bottomblock = this.findBottomBlock(this.blocks,oldRect, newRect);
+            if(bottomblock){
+                this.ceiling = bottomblock;
+                this.y= bottomblock.getBottomY()-this.getPlayerRect().height;
+                this.vy =0;
             }
-            else{
-                var bottomblock = this.findBottomBlock(this.blocks,oldRect, newRect);
-                if(bottomblock){
-                    this.ceiling = bottomblock;
-                    this.y= bottomblock.getBottomY()-this.getPlayerRect().height;
-                    this.vy =0;
-                }
-            }
-
         }
 
         if(this.vx<=0){
@@ -156,12 +160,14 @@ var Player = cc.Sprite.extend({
             }
         }
     },
+
     findRightBlock:function(blocks,oldRect,newRect){
         var rightBlock = null;
         var rightBlockX = 1;
         blocks.forEach(function(b){
             if(b.hitRight(oldRect,newRect)){
                 if(b.getRightX()>rightBlockX){
+                    console.log("hit left");
                     rightBlock = b;
                     rightBlockX = b.getRightX();
                 }
@@ -169,12 +175,14 @@ var Player = cc.Sprite.extend({
         },this);
         return rightBlock;
     },
+
     findLeftBlock:function(blocks,oldRect,newRect){
         var leftBlock = null;
         var leftBlockX = -1;
         blocks.forEach(function(b){
             if(b.hitLeft(oldRect,newRect)){
                 if(b.getLeftX()>leftBlockX){
+                    console.log("hit right");
                     leftBlock = b;
                     leftBlockX = b.getLeftX();
                 }
@@ -182,6 +190,7 @@ var Player = cc.Sprite.extend({
         },this);
         return leftBlock;
     },
+
     findBottomBlock:function(blocks,oldRect,newRect){
         var bottomBlock = null;
         var bottomBlockY = 1;
@@ -189,6 +198,7 @@ var Player = cc.Sprite.extend({
         blocks.forEach(function(b){
             if(b.hitBottom(oldRect,newRect)){
                 if(b.getBottomY()>bottomBlockY){
+                    console.log("hit top");
                     bottomBlockY = b.getTopY();
                     bottomBlock =b;
                 }
@@ -196,6 +206,7 @@ var Player = cc.Sprite.extend({
         },this);
         return bottomBlock;
     },
+
     findTopBlock:function(blocks,oldRect,newRect){
         var topBlock = null;
         var topBlockY = -1;
@@ -203,6 +214,7 @@ var Player = cc.Sprite.extend({
         blocks.forEach(function(b){
             if(b.hitTop(oldRect,newRect)){
                 if(b.getTopY()>topBlockY){
+                    console.log("hit bottom");
                     topBlockY = b.getTopY();
                     topBlock =b;
                 }
@@ -216,11 +228,16 @@ var Player = cc.Sprite.extend({
             this[Player.KEYMAP[keyCode]]=true;
         }
     },
+
     handleKeyUp: function (keyCode) {
         if(Player.KEYMAP[keyCode]!=undefined){
             this[Player.KEYMAP[keyCode]]=false;
         }
     },
+    isDead: function () {
+        return this.y<0;
+    },
+
     setBlocks:function(blocks){
         this.blocks = blocks;
     }
