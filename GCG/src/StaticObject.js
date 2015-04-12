@@ -24,6 +24,9 @@ var Polegon = cc.Sprite.extend({
 
     hitTop: function(oldRect, newRect){
         var brect = this.getBoundingBoxToWorld();
+        if(!this.inScene()){
+            return false;
+        }
         if(cc.rectGetMinY(oldRect)>= cc.rectGetMaxY(brect)){
             var loweredNewRect = cc.rect(newRect.x,newRect.y-1,newRect.width,newRect.height+1);
             var uRect = cc.rectUnion(oldRect,loweredNewRect);
@@ -35,6 +38,9 @@ var Polegon = cc.Sprite.extend({
 
     hitBottom:function(oldRect,newRect){
         var brect = this.getBoundingBoxToWorld();
+        if(!this.inScene()){
+            return false;
+        }
         if(cc.rectGetMaxY(oldRect)>= cc.rectGetMinY(brect)){
             var upedNewRect = cc.rect(oldRect.x,newRect.y,newRect.width,newRect.height+1);
             var uRect = cc.rectUnion(oldRect,upedNewRect);
@@ -52,6 +58,9 @@ var Polegon = cc.Sprite.extend({
 
     hitRight:function(oldRect,newRect){
         var brect = this.getBoundingBoxToWorld();
+        if(!this.inScene()){
+            return false;
+        }
         if(cc.rectGetMinX(oldRect)>=cc.rectGetMaxX(brect)) {
             var leftedNewRect = cc.rect(newRect.x - 1, newRect.y, newRect.width , newRect.height);
             var uRect = cc.rectUnion(oldRect, leftedNewRect);
@@ -63,6 +72,9 @@ var Polegon = cc.Sprite.extend({
 
     hitLeft:function(oldRect,newRect){
         var brect = this.getBoundingBoxToWorld();
+        if(!this.inScene()){
+            return false;
+        }
         if(cc.rectGetMaxX(oldRect)<=cc.rectGetMinX(brect)) {
             var rightedNewRect = cc.rect(newRect.x, newRect.y, newRect.width + 1, newRect.height);
             var uRect = cc.rectUnion(oldRect, rightedNewRect);
@@ -87,6 +99,12 @@ var Polegon = cc.Sprite.extend({
         var bmaxx = cc.rectGetMaxX(brect);
         var minx = cc.rectGetMinX(rect);
         var maxx = cc.rectGetMaxX(rect);
+        return false;
+    },
+    inScene:function(){
+        if((this.x<screenWidth||this.x>0)&&(this.y<screenHeight||this.y>0)){
+            return true;
+        }
         return false;
     }
 });
