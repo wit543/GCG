@@ -11,8 +11,8 @@ var Player = cc.Sprite.extend({
         this.y = y;
 
         this.maxVx =15;
-        this.accX =.50;
-        this.backAccX =0.25;
+        this.accX =.3;
+        this.backAccX =0.5;
         this.jumpV = 15;
         this.g =-.75;
 
@@ -54,6 +54,9 @@ var Player = cc.Sprite.extend({
             this.handleCollision(currentPositionRect,newPositionRect);
             this.updateSpritePosition();
         }
+        else{
+            this.vx=0;
+        }
     },
 
     updateXMovement:function(){
@@ -65,13 +68,13 @@ var Player = cc.Sprite.extend({
             this.accelerateX(-1);
         }
 
-        this.x+=this.vx;
-        if(this.x<0){
-            this.x +=screenWidth;
-        }
-        if(this.x>screenWidth){
-            this.x-=screenWidth;
-        }
+        //this.x+=this.vx;
+        //if(this.x<20){
+        //    this.x +=screenWidth-100;
+        //}
+        //if(this.x>screenWidth-30){
+        //    this.x-=screenWidth+100;
+        //}
     },
 
     updateYMovement:function(){
@@ -193,7 +196,7 @@ var Player = cc.Sprite.extend({
 
     findBottomBlock:function(blocks,oldRect,newRect){
         var bottomBlock = null;
-        var bottomBlockY = 1;
+        var bottomBlockY =0;
 
         blocks.forEach(function(b){
             if(b.hitBottom(oldRect,newRect)){
@@ -235,7 +238,7 @@ var Player = cc.Sprite.extend({
         }
     },
     isDead: function () {
-        return this.y<0;
+        return this.y<-100;
     },
 
     setBlocks:function(blocks){
