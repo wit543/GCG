@@ -10,6 +10,8 @@ var Player = cc.Sprite.extend({
         this.x = x;
         this.y = y;
 
+
+        this.mapX =0;
         this.maxVx =15;
         this.accX =.3;
         this.backAccX =0.5;
@@ -30,11 +32,11 @@ var Player = cc.Sprite.extend({
         this.rightSide = null;
         this.blocks = [];
         this.map = null;
-        this.updateSpritePosition();
     },
 
     updateSpritePosition:function(){
-        this.setPosition(cc.p(Math.round(this.x),Math.round(this.y)));
+        this.map.setPositionX(Math.round(this.mapX));
+        //this.setPositionY(Math.round(this.y));
     },
 
     getPlayerRect:function(){
@@ -68,7 +70,7 @@ var Player = cc.Sprite.extend({
         }else{
             this.accelerateX(-1);
         }
-
+        this.mapX-=this.vx;
         //this.x+=this.vx;
         //if(this.x<20){
         //    this.x +=screenWidth-100;
@@ -144,25 +146,25 @@ var Player = cc.Sprite.extend({
                 this.vy =0;
             }
         }
-
-        if(this.vx<=0){
-            this.leftSilde=null;
-            var rightBlock = this.findRightBlock(this.blocks,oldRect,newRect);
-            if(rightBlock){
-                this.leftSilde = rightBlock;
-                this.x =rightBlock.getRightX();
-                this.vx=0;
-            }
-        }
-        else{
-            this.rightSilde=null;
-            var leftBlock = this.findLeftBlock(this.blocks,oldRect,newRect);
-            if(leftBlock){
-                this.rightSilde = leftBlock;
-                this.x =leftBlock.getLeftX()-this.getPlayerRect().width;
-                this.vx=0;
-            }
-        }
+        //
+        //if(this.vx<=0){
+        //    this.leftSilde=null;
+        //    var rightBlock = this.findRightBlock(this.blocks,oldRect,newRect);
+        //    if(rightBlock){
+        //        this.leftSilde = rightBlock;
+        //        this.x =rightBlock.getRightX();
+        //        this.vx=0;
+        //    }
+        //}
+        //else{
+        //    this.rightSilde=null;
+        //    var leftBlock = this.findLeftBlock(this.blocks,oldRect,newRect);
+        //    if(leftBlock){
+        //        this.rightSilde = leftBlock;
+        //        this.x =leftBlock.getLeftX()-this.getPlayerRect().width;
+        //        this.vx=0;
+        //    }
+        //}
     },
 
     findRightBlock:function(blocks,oldRect,newRect){

@@ -31,7 +31,7 @@ var GameLayer = cc.LayerColor.extend({
         if(!CollisionDetection.checkCollision(this.player,this.pol)){
             this.player.canMove=false;
         }
-        this.moveMap();
+        //this.moveMap();
     },
 
     createBlocks:function(){
