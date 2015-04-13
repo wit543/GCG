@@ -29,6 +29,7 @@ var Player = cc.Sprite.extend({
         this.ceiling = null;
         this.rightSide = null;
         this.blocks = [];
+        this.map = null;
         this.updateSpritePosition();
     },
 
@@ -241,8 +242,9 @@ var Player = cc.Sprite.extend({
         return this.y<-100;
     },
 
-    setBlocks:function(blocks){
-        this.blocks = blocks;
+    setMap:function(map){
+        this.map = map;
+        this.blocks = map.blocks;
     }
 });
 

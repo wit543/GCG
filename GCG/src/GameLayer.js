@@ -8,7 +8,7 @@ var GameLayer = cc.LayerColor.extend({
         this.createBlocks();
         //console.log(test.getPosition());
         this.player = new Player(200,600);
-        this.player.setBlocks(this.blocks);
+        this.player.setMap(this.map);
         this.addChild(this.player);
         this.player.scheduleUpdate();
         this.addKeyboardHandlers();

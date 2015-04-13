@@ -52,24 +52,38 @@ var Polegon = cc.Sprite.extend({
         return false;
     },
 
+    //hitRight:function(oldRect,newRect){
+    //    var brect = this.getBoundingBoxToWorld();
+    //
+    //    if(cc.rectGetMinX(oldRect)>=cc.rectGetMaxX(brect)) {
+    //        var leftedNewRect = cc.rect(newRect.x - 1, newRect.y, newRect.width , newRect.height);
+    //        var uRect = cc.rectUnion(oldRect, leftedNewRect);
+    //        var newBrect = cc.rect(brect.x,brect.y+1,brect.width,brect.height-2);
+    //        if(cc.rectIntersectsRect(uRect, newBrect)){
+    //            console.log(oldRect);
+    //            console.log(newRect);
+    //            console.log(uRect);
+    //            console.log(newBrect);
+    //            return true;
+    //        }
+    //    }
+    //    return false;
+    //},
     hitRight:function(oldRect,newRect){
         var brect = this.getBoundingBoxToWorld();
 
         if(cc.rectGetMinX(oldRect)>=cc.rectGetMaxX(brect)) {
             var leftedNewRect = cc.rect(newRect.x - 1, newRect.y, newRect.width , newRect.height);
             var uRect = cc.rectUnion(oldRect, leftedNewRect);
-            var newBrect = cc.rect(brect.x,brect.y+1,brect.width,brect.height-2);
-            if(cc.rectIntersectsRect(uRect, newBrect)){
+            var newBrect = cc.rect(brect.x+1,brect.y+1,brect.width,brect.height-2);
+            if(cc.rectIntersectsRect(oldRect, newBrect)){
                 console.log(oldRect);
-                console.log(newRect);
-                console.log(uRect);
                 console.log(newBrect);
                 return true;
             }
         }
         return false;
     },
-
     hitLeft:function(oldRect,newRect){
         var brect = this.getBoundingBoxToWorld();
 
