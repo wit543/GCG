@@ -71,13 +71,6 @@ var Player = cc.Sprite.extend({
             this.accelerateX(-1);
         }
         this.mapX-=this.vx;
-        //this.x+=this.vx;
-        //if(this.x<20){
-        //    this.x +=screenWidth-100;
-        //}
-        //if(this.x>screenWidth-30){
-        //    this.x-=screenWidth+100;
-        //}
     },
 
     updateYMovement:function(){
@@ -146,25 +139,29 @@ var Player = cc.Sprite.extend({
                 this.vy =0;
             }
         }
-        //
-        //if(this.vx<=0){
-        //    this.leftSilde=null;
-        //    var rightBlock = this.findRightBlock(this.blocks,oldRect,newRect);
-        //    if(rightBlock){
-        //        this.leftSilde = rightBlock;
-        //        this.x =rightBlock.getRightX();
-        //        this.vx=0;
-        //    }
-        //}
-        //else{
-        //    this.rightSilde=null;
-        //    var leftBlock = this.findLeftBlock(this.blocks,oldRect,newRect);
-        //    if(leftBlock){
-        //        this.rightSilde = leftBlock;
-        //        this.x =leftBlock.getLeftX()-this.getPlayerRect().width;
-        //        this.vx=0;
-        //    }
-        //}
+
+        if(this.vx<=0){
+            this.leftSilde=null;
+            var rightBlock = this.findRightBlock(this.blocks,oldRect,newRect);
+            if(rightBlock){
+                this.leftSilde = rightBlock;
+                //this.mapX =rightBlock.getRightX();
+                this.mapX -=1;
+                console.log(rightBlock.getRightX());
+                this.vx=0;
+            }
+        }
+        else{
+            this.rightSilde=null;
+            var leftBlock = this.findLeftBlock(this.blocks,oldRect,newRect);
+            if(leftBlock){
+                this.rightSilde = leftBlock;
+                //this.mapX =leftBlock.getLeftX()-this.getPlayerRect().width;
+                this.mapX+=1;
+                console.log(leftBlock.getLeftX()-this.getPlayerRect().width);
+                this.vx=0;
+            }
+        }
     },
 
     findRightBlock:function(blocks,oldRect,newRect){

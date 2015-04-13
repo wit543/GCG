@@ -16,7 +16,7 @@ var GameLayer = cc.LayerColor.extend({
         //this.addChild(new Polegon(190,200,50,50));
         //this.addChild(new Polegon(205,215,50,50));
         //this.addChild(new Polegon(190,200,50,66));
-        //this.addChild(new Polegon(201,200,48,49));
+        //this.addChild(new Polegon(149,200,48,49));
         this.scheduleUpdate();
         this.initLabel();
         return true;

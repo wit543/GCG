@@ -11,6 +11,7 @@ var Polegon = cc.Sprite.extend({
     },
 
     getRightX:function(){
+        console.log(this.x+" "+this.y);
         return cc.rectGetMaxX(this.getBoundingBoxToWorld());
     },
 
@@ -19,6 +20,7 @@ var Polegon = cc.Sprite.extend({
     },
 
     getLeftX:function(){
+        console.log(this.x+" "+this.y);
         return cc.rectGetMinX(this.getBoundingBoxToWorld());
     },
 
@@ -52,38 +54,24 @@ var Polegon = cc.Sprite.extend({
         return false;
     },
 
-    //hitRight:function(oldRect,newRect){
-    //    var brect = this.getBoundingBoxToWorld();
-    //
-    //    if(cc.rectGetMinX(oldRect)>=cc.rectGetMaxX(brect)) {
-    //        var leftedNewRect = cc.rect(newRect.x - 1, newRect.y, newRect.width , newRect.height);
-    //        var uRect = cc.rectUnion(oldRect, leftedNewRect);
-    //        var newBrect = cc.rect(brect.x,brect.y+1,brect.width,brect.height-2);
-    //        if(cc.rectIntersectsRect(uRect, newBrect)){
-    //            console.log(oldRect);
-    //            console.log(newRect);
-    //            console.log(uRect);
-    //            console.log(newBrect);
-    //            return true;
-    //        }
-    //    }
-    //    return false;
-    //},
     hitRight:function(oldRect,newRect){
         var brect = this.getBoundingBoxToWorld();
 
         if(cc.rectGetMinX(oldRect)>=cc.rectGetMaxX(brect)) {
             var leftedNewRect = cc.rect(newRect.x - 1, newRect.y, newRect.width , newRect.height);
             var uRect = cc.rectUnion(oldRect, leftedNewRect);
-            var newBrect = cc.rect(brect.x+1,brect.y+1,brect.width,brect.height-2);
-            if(cc.rectIntersectsRect(oldRect, newBrect)){
-                console.log(oldRect);
+            var newBrect = cc.rect(brect.x,brect.y+1,brect.width,brect.height-2);
+            if(cc.rectIntersectsRect(uRect, newBrect)){
+                //console.log(oldRect);
+                //console.log(newRect);
+                //console.log(uRect);
                 console.log(newBrect);
                 return true;
             }
         }
         return false;
     },
+
     hitLeft:function(oldRect,newRect){
         var brect = this.getBoundingBoxToWorld();
 
@@ -91,7 +79,10 @@ var Polegon = cc.Sprite.extend({
             var rightedNewRect = cc.rect(newRect.x, newRect.y, newRect.width + 1, newRect.height);
             var uRect = cc.rectUnion(oldRect, rightedNewRect);
             var newBrect = cc.rect(brect.x,brect.y+1,brect.width,brect.height-2);
-            return cc.rectIntersectsRect(uRect, newBrect);
+            if(cc.rectIntersectsRect(uRect, newBrect)){
+                console.log(newBrect);
+                return true;
+            }
         }
         return false;
     }
