@@ -11,7 +11,6 @@ var Polegon = cc.Sprite.extend({
     },
 
     getRightX:function(){
-        console.log(this.x+" "+this.y);
         return cc.rectGetMaxX(this.getBoundingBoxToWorld());
     },
 
@@ -20,7 +19,6 @@ var Polegon = cc.Sprite.extend({
     },
 
     getLeftX:function(){
-        console.log(this.x+" "+this.y);
         return cc.rectGetMinX(this.getBoundingBoxToWorld());
     },
 
@@ -66,6 +64,7 @@ var Polegon = cc.Sprite.extend({
                 //console.log(newRect);
                 //console.log(uRect);
                 console.log(newBrect);
+                console.log(this.x+" "+this.y)
                 return true;
             }
         }
