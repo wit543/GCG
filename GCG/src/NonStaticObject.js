@@ -4,7 +4,7 @@
 var Monster = cc.Sprite.extend({
     ctor: function (x, y, map) {
         this._super();
-        this.initWithFile("res/images/monster.png");
+        this.initImgae();
         this.setAnchorPoint(0,0);
         this.x=x;
         this.y=y;
@@ -30,6 +30,9 @@ var Monster = cc.Sprite.extend({
 
         this.setMap(map);
         this.scheduleUpdate();
+    },
+    initImgae:function(){
+        this.initWithFile("res/images/monster.png");
     },
     updateSpritePosition:function(){
         this.setPositionX(Math.round(this.mapX));
@@ -217,18 +220,6 @@ var Monster = cc.Sprite.extend({
             }
         },this);
         return topBlock;
-    },
-
-    handleKeyDown:function(keyCode){
-        if(Player.KEYMAP[keyCode]!=undefined){
-            this[Player.KEYMAP[keyCode]]=true;
-        }
-    },
-
-    handleKeyUp: function (keyCode) {
-        if(Player.KEYMAP[keyCode]!=undefined){
-            this[Player.KEYMAP[keyCode]]=false;
-        }
     },
     isDead: function () {
         return this.y<-100;

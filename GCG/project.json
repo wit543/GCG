@@ -14,11 +14,12 @@
       "src/resource.js",
       "src/GameLayer.js",
       "src/StaticObject.js",
+      "src/MoveAbleObject.js",
       "src/Player.js",
       "src/Physic.js",
       "src/UnitTest.js",
       "src/Map.js",
-      "src/NonStaticObject.js",
-      "src/MoveAbleObject.js"
+      "src/NonStaticObject.js"
+
     ]
 }
