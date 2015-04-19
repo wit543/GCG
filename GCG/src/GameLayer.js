@@ -18,25 +18,30 @@ var GameLayer = cc.LayerColor.extend({
         //this.addChild(new Polegon(149,200,48,49));
         //this.monster = new Monster(500,500,this.map);
         //this.addChild(this.monster);
+
+        this.availableBlock = 10;
         this.map.addMovingObject();
         this.scheduleUpdate();
         this.initLabel();
-        this.availableBlock = 10;
+
         return true;
     },
     initLabel:function(){
-        this.scoreLabel = cc.LabelTTF.create( '0', 'Arial', 40 );
-        this.scoreLabel.setPosition( new cc.Point( 750, 550 ) );
-        this.addChild( this.scoreLabel );
-        this.scoreLabel.setString("00");
+        this.availableBlockLabel = cc.LabelTTF.create( '0', 'Arial', 40 );
+        this.availableBlockLabel.setPosition( new cc.Point( 750, 550 ) );
+        this.addChild( this.availableBlockLabel );
+        this.availableBlockLabel.setString(this.availableBlock);
     },
     update:function(){
         if(!CollisionDetection.checkCollision(this.player,this.pol)){
             this.player.canMove=false;
         }
         //this.moveMap();
+        this.updateLabel();
     },
-
+    updateLabel:function(){
+        this.availableBlockLabel.setString(this.availableBlock);
+    },
     createBlocks:function(){
         this.map = new Map();
         this.blocks=this.map.blocks;
@@ -67,8 +72,8 @@ var GameLayer = cc.LayerColor.extend({
         if(this.availableBlock>0) {
             var poly = new Polegon((-this.map.x)+x, this.map.y+y, (-this.map.x)+x+50, this.map.y+y+50);
             poly.setAnchorPoint(.5,.5);
-            console.log(poly.x+" "+poly.y);
-            console.log(this.map.x+"   "+this.map.y);
+            //console.log(poly.x+" "+poly.y);
+            //console.log(this.map.x+"   "+this.map.y);
             this.blocks.push(poly);
             this.map.addChild(poly);
             this.availableBlock--;
@@ -85,16 +90,16 @@ var GameLayer = cc.LayerColor.extend({
             },
             onMouseUp: function(event){
                 var str = "Mouse Up detected, Key: " + event.getButton();
-                console.log(str);
+                //console.log(str);
             },
             onMouseDown: function(event){
                 var str = "Mouse Down detected, Key: " + event.getButton();
                 self.addObject(event.getLocationX(),event.getLocationY());
-                console.log(str);
+                //console.log(str);
             },
             onMouseScroll: function(event){
                 var str = "Mouse Scroll detected, X: " + event.getLocationX() + "  Y:" + event.getLocationY();
-                console.log(str);
+                //console.log(str);
             }
         },this);
     },
