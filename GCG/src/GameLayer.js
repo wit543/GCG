@@ -17,6 +17,8 @@ var GameLayer = cc.LayerColor.extend({
         //this.addChild(new Polegon(205,215,50,50));
         //this.addChild(new Polegon(190,200,50,66));
         //this.addChild(new Polegon(149,200,48,49));
+        this.monster = new Monster(500,600,this.map);
+        this.addChild(this.monster);
         this.scheduleUpdate();
         this.initLabel();
         return true;
