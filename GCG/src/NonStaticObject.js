@@ -10,7 +10,10 @@ var Monster = MoveAbleObject.extend({
     initMaxVx:function(){
         this.maxVx=3;
     },
-    updateSpritePosition:function(){
+    updateSpritePosition:function() {
         this.setPositionX(Math.round(this.newX));
+    },
+    updateExtended:function(){
+        console.log(this.x+" ",this.y);
     }
 });

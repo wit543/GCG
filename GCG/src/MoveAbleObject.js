@@ -84,8 +84,11 @@ var MoveAbleObject =  cc.Sprite.extend({
         else{
             this.vx=0;
         }
+        this.updateExtended();
     },
+    updateExtended:function(){
 
+    },
     updateXMovement:function(){
         if((!this.moveLeft)&&(!this.moveRight)){
             this.autoDeaccelerateX();
@@ -190,7 +193,7 @@ var MoveAbleObject =  cc.Sprite.extend({
         blocks.forEach(function(b){
             if(b.hitRight(oldRect,newRect)){
                 if(b.getRightX()>rightBlockX){
-                    console.log("hit left");
+                    //console.log("hit left");
                     rightBlock = b;
                     rightBlockX = b.getRightX();
                 }
@@ -205,7 +208,7 @@ var MoveAbleObject =  cc.Sprite.extend({
         blocks.forEach(function(b){
             if(b.hitLeft(oldRect,newRect)){
                 if(b.getLeftX()>leftBlockX){
-                    console.log("hit right");
+                    //console.log("hit right");
                     leftBlock = b;
                     leftBlockX = b.getLeftX();
                 }
@@ -221,7 +224,7 @@ var MoveAbleObject =  cc.Sprite.extend({
         blocks.forEach(function(b){
             if(b.hitBottom(oldRect,newRect)){
                 if(b.getBottomY()>bottomBlockY){
-                    console.log("hit top");
+                    //console.log("hit top");
                     bottomBlockY = b.getTopY();
                     bottomBlock =b;
                 }
@@ -237,7 +240,7 @@ var MoveAbleObject =  cc.Sprite.extend({
         blocks.forEach(function(b){
             if(b.hitTop(oldRect,newRect)){
                 if(b.getTopY()>topBlockY){
-                    console.log("hit bottom");
+                    //console.log("hit bottom");
                     topBlockY = b.getTopY();
                     topBlock =b;
                 }
