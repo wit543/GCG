@@ -83,6 +83,7 @@ var MoveAbleObject =  cc.Sprite.extend({
         }
         else{
             this.vx=0;
+            this.removeFromParent();
         }
         this.updateExtended();
     },

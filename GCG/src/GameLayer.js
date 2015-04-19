@@ -21,6 +21,7 @@ var GameLayer = cc.LayerColor.extend({
         this.map.addMovingObject();
         this.scheduleUpdate();
         this.initLabel();
+        this.availableBlock = 10;
         return true;
     },
     initLabel:function(){
@@ -62,10 +63,17 @@ var GameLayer = cc.LayerColor.extend({
             }
         }, this);
     },
-    addObject:function(){
-        var poly = new Polegon(100,100,150,150);
-        this.blocks.push(poly);
-        this.addChild(poly);
+    addObject:function(x,y){
+        if(this.availableBlock>0) {
+            var poly = new Polegon((-this.map.x)+x, this.map.y+y, (-this.map.x)+x+50, this.map.y+y+50);
+            poly.setAnchorPoint(.5,.5);
+            console.log(poly.x+" "+poly.y);
+            console.log(this.map.x+"   "+this.map.y);
+            this.blocks.push(poly);
+            this.map.addChild(poly);
+            this.availableBlock--;
+        }
+
     },
     addMouseHandlers:function(){
         var self = this;
@@ -81,7 +89,7 @@ var GameLayer = cc.LayerColor.extend({
             },
             onMouseDown: function(event){
                 var str = "Mouse Down detected, Key: " + event.getButton();
-                self.addObject();
+                self.addObject(event.getLocationX(),event.getLocationY());
                 console.log(str);
             },
             onMouseScroll: function(event){
