@@ -12,8 +12,5 @@ var Monster = MoveAbleObject.extend({
     },
     updateSpritePosition:function() {
         this.setPositionX(Math.round(this.newX));
-    },
-    updateExtended:function(){
-        console.log(this.x+" ",this.y);
     }
 });
