@@ -56,7 +56,7 @@ var Polegon = cc.Sprite.extend({
         var brect = this.getBoundingBoxToWorld();
         if(oldRect.x>=brect.x&&oldRect.x<=brect.x+50){
             if(oldRect.y>brect.y-50&&oldRect.y<brect.y+50) {
-                console.log(oldRect.x+" "+brect.x);
+                //console.log(oldRect.x+" "+brect.x);
                 return true;
             }
         }
@@ -70,9 +70,6 @@ var Polegon = cc.Sprite.extend({
                // console.log(oldRect.x-brect.x);
                 return true;
             }
-        }
-        if(oldRect.y>brect.y-50&&oldRect.y<brect.y+50) {
-            console.log(oldRect.x - brect.x);
         }
         return false;
     }
