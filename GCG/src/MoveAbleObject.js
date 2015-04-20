@@ -17,7 +17,7 @@ var MoveAbleObject =  cc.Sprite.extend({
         this.initBackAccX();
         this.initJumpV();
         this.initG();
-
+        this.initLive();
         this.vx =0;
         this.vy =0;
 
@@ -25,6 +25,8 @@ var MoveAbleObject =  cc.Sprite.extend({
         this.moveRight = false;
 
         this.jump = false;
+
+
 
         this.ground =null;
         this.blocks = [];
@@ -34,6 +36,9 @@ var MoveAbleObject =  cc.Sprite.extend({
     },
     ctorExtended:function(){
 
+    },
+    initLive: function () {
+        this.live = 1;
     },
     initMaxVx:function(){
         this.maxVx=15;
@@ -156,8 +161,11 @@ var MoveAbleObject =  cc.Sprite.extend({
 
         this.handleCollisionY(oldRect,newRect);
         this.handleCollisionX(oldRect,newRect);
+        this.handleCollisionExtended();
     },
+    handleCollisionExtended:function(){
 
+    },
     handleCollisionY:function(oldRect,newRect){
         this.ground=null;
         if(this.vy<=0){
@@ -270,7 +278,7 @@ var MoveAbleObject =  cc.Sprite.extend({
     },
 
     isDead: function () {
-        return this.y<-100;
+        return this.y<-100||this.live<=0;
     },
 
     setMap:function(map){

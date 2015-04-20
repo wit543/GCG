@@ -34,7 +34,7 @@ var Monster = MoveAbleObject.extend({
     },
     hit: function (player) {
         var Mrect = this.getBoundingBoxToWorld();
-        if(player.x>=Mrect.x&&player.x<=Mrect.x+50||oldRect.x+50>=brect.x&&oldRect.x+50<=brect.x+50){
+        if(player.x>=Mrect.x&&player.x<=Mrect.x+50||player.x+50>=Mrect.x&&player.x+50<=Mrect.x+50){
             if(player.y>Mrect.y-50&&player.y<Mrect.y+50) {
                 return true;
             }
