@@ -30,7 +30,7 @@ var Map =cc.Node.extend({
                         "...................................",
                         "...................................",
                         "...................................",
-                        ".....................M.............",
+                        "..............M....................",
                         "...................................",
                         "....#...#..........................",
                         "#######################............",
@@ -54,15 +54,15 @@ var Map =cc.Node.extend({
                     }
                 }
             },
-            addMovingObject:function(){
-                for (var r = 0; r < this.MAP.length; r++) {
-                    for (var c = 0; c < this.MAP[0].length; c++) {
-                        var currentCell = this.MAP[r][c];
+    addMovingObject:function(){
+        for (var r = 0; r < this.MAP.length; r++) {
+            for (var c = 0; c < this.MAP[0].length; c++) {
+                var currentCell = this.MAP[r][c];
                 if (currentCell == "M") {
                     this.addMonsterToMonsters(new Monster(c * 50, (this.height - r - 1) * 50, this));
                 }
-            }
-        }
+              }
+         }
     },
     addObjrctToMap:function(object){
         this.blocks.push(object);
