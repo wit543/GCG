@@ -49,11 +49,11 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     onKeyDown: function( keyCode, event ) {
-        this.map.monsters[0].handleKeyDown( keyCode );
+        this.player.handleKeyDown( keyCode );
     },
 
     onKeyUp: function( keyCode, event ) {
-        this.map.monsters[0].handleKeyUp( keyCode );
+        this.player.handleKeyUp( keyCode );
     },
 
     addKeyboardHandlers: function() {

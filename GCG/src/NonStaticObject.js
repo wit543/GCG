@@ -4,8 +4,8 @@
 var Monster = MoveAbleObject.extend({
     ctorExtended:function(){
         this.scheduleUpdate();
-        this.moveRight=false;
-        this.moveLeft=true;
+        this.moveRight=true;
+        this.moveLeft=false;
         this.newX=this.x;
     },
     initMaxVx:function(){
@@ -27,12 +27,11 @@ var Monster = MoveAbleObject.extend({
     updateXMovementExtended:function(){
         this.newX+=this.vx;
     },
-    rightCollisionSetPositionX:function(rightBlock){
-        this.newX = rightBlock.getRightX();
+   rightCollisionSetPositionX:function(rightBlock){
+        this.newX = rightBlock.getRightX()-this.map.x;
     },
     leftCollisionSetPositionX:function(leftBlock){
-        console.log(leftBlock);
-        this.newX = leftBlock.getLeftX()-50;
+        this.newX = leftBlock.getLeftX()-50-this.map.x;
     },
 
 });

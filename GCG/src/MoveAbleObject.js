@@ -184,7 +184,7 @@ var MoveAbleObject =  cc.Sprite.extend({
             this.rightSilde=null;
             var leftBlock = this.findLeftBlock(this.blocks,oldRect,newRect);
             if(leftBlock){
-                console.log(this.newX);
+               // console.log(this.newX);
                 this.leftCollisionSetPositionX(leftBlock);
                 //this.newX-=this.vx;
                 //console.log(leftBlock.getLeftX()-this.getRect().width);
@@ -200,7 +200,7 @@ var MoveAbleObject =  cc.Sprite.extend({
     },
     findRightBlock:function(blocks,oldRect,newRect){
         var rightBlock = null;
-        var rightBlockX = 1;
+        var rightBlockX = -10000000;
         blocks.forEach(function(b){
             if(b.hitRight(oldRect,newRect)){
                 //console.log(b);
@@ -216,7 +216,7 @@ var MoveAbleObject =  cc.Sprite.extend({
 
     findLeftBlock:function(blocks,oldRect,newRect){
         var leftBlock = null;
-        var leftBlockX = -1;
+        var leftBlockX = -10000000;
         blocks.forEach(function(b){
             if(b.hitLeft(oldRect,newRect)){
                 if(b.getLeftX()>leftBlockX){
