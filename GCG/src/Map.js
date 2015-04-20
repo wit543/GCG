@@ -25,39 +25,39 @@ var Map =cc.Node.extend({
             //"......................................................................................................",
 
 
-            "...................................",
-            "...................................",
-            "...................................",
-            "...................................",
-            "...................................",
-            ".....................M.............",
-            "...................................",
-            "....#..............................",
-            "#######################............",
-            ".......................#...........",
-            ".......................#############",
-            "...................................",
+                    "...................................",
+                        "...................................",
+                        "...................................",
+                        "...................................",
+                        "...................................",
+                        ".....................M.............",
+                        "...................................",
+                        "....#...#..........................",
+                        "#######################............",
+                        ".......................#...........",
+                        ".......................#############",
+                        "...................................",
 
-        ];
-        this.initMaze();
-    },
-    initMaze:function() {
-        for (var r = 0; r < this.MAP.length; r++) {
-            for (var c = 0; c < this.MAP[0].length; c++) {
-                var currentCell = this.MAP[r][c];
-                if (currentCell == "#") {
-                    this.addObjrctToMap(new Polegon(c * 50, (this.height - r - 1) * 50, c * 50 + 50, (this.height - r - 1) * 50 + 50));
+                    ];
+                this.initMaze();
+            },
+            initMaze:function() {
+                for (var r = 0; r < this.MAP.length; r++) {
+                    for (var c = 0; c < this.MAP[0].length; c++) {
+                        var currentCell = this.MAP[r][c];
+                        if (currentCell == "#") {
+                            this.addObjrctToMap(new Polegon(c * 50, (this.height - r - 1) * 50, c * 50 + 50, (this.height - r - 1) * 50 + 50));
+                        }
+                        else if (currentCell == "F") {
+                            this.addChild(new Flag(c*50,(this.height-r-1)*50));
+                        }
+                    }
                 }
-                else if (currentCell == "F") {
-                    this.addChild(new Flag(c*50,(this.height-r-1)*50));
-                }
-            }
-        }
-    },
-    addMovingObject:function(){
-        for (var r = 0; r < this.MAP.length; r++) {
-            for (var c = 0; c < this.MAP[0].length; c++) {
-                var currentCell = this.MAP[r][c];
+            },
+            addMovingObject:function(){
+                for (var r = 0; r < this.MAP.length; r++) {
+                    for (var c = 0; c < this.MAP[0].length; c++) {
+                        var currentCell = this.MAP[r][c];
                 if (currentCell == "M") {
                     this.addMonsterToMonsters(new Monster(c * 50, (this.height - r - 1) * 50, this));
                 }
