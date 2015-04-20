@@ -16,6 +16,7 @@ var Player = MoveAbleObject.extend({
             this[Player.KEYMAP[keyCode]]=false;
         }
     }
+
 });
 
 Player.KEYMAP= {}

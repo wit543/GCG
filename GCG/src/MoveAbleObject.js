@@ -153,6 +153,12 @@ var MoveAbleObject =  cc.Sprite.extend({
     },
 
     handleCollision:function(oldRect,newRect){
+
+        this.handleCollisionY(oldRect,newRect);
+        this.handleCollisionX(oldRect,newRect);
+    },
+
+    handleCollisionY:function(oldRect,newRect){
         this.ground=null;
         if(this.vy<=0){
             var topBlock = this.findTopBlock(this.blocks,oldRect, newRect);
@@ -169,7 +175,8 @@ var MoveAbleObject =  cc.Sprite.extend({
                 this.vy =0;
             }
         }
-
+    },
+    handleCollisionX:function(oldRect,newRect){
         if(this.vx<=0){
             this.leftSilde=null;
             var rightBlock = this.findRightBlock(this.blocks,oldRect,newRect);
@@ -184,7 +191,7 @@ var MoveAbleObject =  cc.Sprite.extend({
             this.rightSilde=null;
             var leftBlock = this.findLeftBlock(this.blocks,oldRect,newRect);
             if(leftBlock){
-               // console.log(this.newX);
+                // console.log(this.newX);
                 this.leftCollisionSetPositionX(leftBlock);
                 //this.newX-=this.vx;
                 //console.log(leftBlock.getLeftX()-this.getRect().width);
@@ -192,6 +199,7 @@ var MoveAbleObject =  cc.Sprite.extend({
             }
         }
     },
+
     rightCollisionSetPositionX:function(rightBlock){
         this.newX +=this.vx-(this.accX+1);
     },
