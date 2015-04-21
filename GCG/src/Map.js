@@ -46,7 +46,7 @@ var Map =cc.Node.extend({
                     for (var c = 0; c < this.MAP[0].length; c++) {
                         var currentCell = this.MAP[r][c];
                         if (currentCell == "#") {
-                            this.addObjrctToMap(new Polegon(c * 50, (this.height - r - 1) * 50, c * 50 + 50, (this.height - r - 1) * 50 + 50));
+                            this.addToMap(new Polegon(c * 50, (this.height - r - 1) * 50, c * 50 + 50, (this.height - r - 1) * 50 + 50));
                         }
                         else if (currentCell == "F") {
                             this.addChild(new Flag(c*50,(this.height-r-1)*50));
@@ -59,20 +59,26 @@ var Map =cc.Node.extend({
             for (var c = 0; c < this.MAP[0].length; c++) {
                 var currentCell = this.MAP[r][c];
                 if (currentCell == "R"){
-                    this.addMonsterToMonsters(new MonsterAlternatedRight(c * 50, (this.height - r - 1) * 50, this));
+                    this.addToObjectAndMonster(new MonsterAlternatedRight(c * 50, (this.height - r - 1) * 50, this));
                 }
                 else if(currentCell == "L"){
-                    this.addMonsterToMonsters(new MonsterAlternatedLeft(c * 50, (this.height - r - 1) * 50, this));
+                    this.addToObjectAndMonster(new MonsterAlternatedLeft(c * 50, (this.height - r - 1) * 50, this));
                 }
               }
          }
     },
-    addObjrctToMap:function(object){
+    addToMap:function(object){
         this.blocks.push(object);
         this.addChild(object);
     },
-    addMonsterToMonsters:function(monster){
+    addToMonsters:function(monster){
         this.addChild(monster);
         this.blocks.push(monster);
+    },
+    addToObjectAndMonster:function(object){
+        this.addChild(object);
+        this.blocks.push(object);
+        this.monsters.push(object);
     }
+
 });
