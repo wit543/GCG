@@ -1,6 +1,7 @@
 /**
  * Created by wit on 28/02/2015.
  */
+var GameLayer = cc.LayerColor.e
 var GameLayer = cc.LayerColor.extend({
     init:function(){
         this._super(new cc.Color(127,127,127));

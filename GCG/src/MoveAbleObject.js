@@ -222,8 +222,10 @@ var MoveAbleObject =  cc.Sprite.extend({
                 //console.log(b);
                 if(b.getRightX()>rightBlockX){
                     //console.log("hit left");
-                    rightBlock = b;
-                    rightBlockX = b.getRightX();
+                    if(this!= b) {
+                        rightBlock = b;
+                        rightBlockX = b.getRightX();
+                    }
                 }
             }
         },this);
@@ -237,8 +239,10 @@ var MoveAbleObject =  cc.Sprite.extend({
             if(b.hitLeft(oldRect,newRect)){
                 if(b.getLeftX()>leftBlockX){
                     //console.log("hit right");
-                    leftBlock = b;
-                    leftBlockX = b.getLeftX();
+                    if(this!= b) {
+                        leftBlock = b;
+                        leftBlockX = b.getLeftX();
+                    }
                 }
             }
         },this);
@@ -253,8 +257,10 @@ var MoveAbleObject =  cc.Sprite.extend({
             if(b.hitBottom(oldRect,newRect)){
                 if(b.getBottomY()>bottomBlockY){
                     //console.log("hit top");
-                    bottomBlockY = b.getTopY();
-                    bottomBlock =b;
+                    if(this!= b) {
+                        bottomBlockY = b.getTopY();
+                        bottomBlock = b;
+                    }
                 }
             }
         },this);
@@ -269,8 +275,10 @@ var MoveAbleObject =  cc.Sprite.extend({
             if(b.hitTop(oldRect,newRect)){
                 if(b.getTopY()>topBlockY){
                     //console.log("hit bottom");
-                    topBlockY = b.getTopY();
-                    topBlock =b;
+                    if(this!= b) {
+                        topBlockY = b.getTopY();
+                        topBlock = b;
+                    }
                 }
             }
         },this);
