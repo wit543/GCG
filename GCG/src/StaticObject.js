@@ -4,11 +4,12 @@ var Polegon = cc.Sprite.extend({
         this.initWithFile("res/images/dirt.png",cc.Rect(0,0,x2-x1,y2-y1));
         this.setAnchorPoint(0,0);
         this.setPosition(cc.p(x1,y1));
+        this.getTopY=GetTopY;
     },
 
-    getTopY:function(){
-        return cc.rectGetMaxY(this.getBoundingBoxToWorld());
-    },
+    //getTopY:function(){
+    //    return cc.rectGetMaxY(this.getBoundingBoxToWorld());
+    //},
 
     getRightX:function(){
         return cc.rectGetMaxX(this.getBoundingBoxToWorld());

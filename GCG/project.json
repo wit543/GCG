@@ -19,7 +19,8 @@
       "src/Physic.js",
       "src/UnitTest.js",
       "src/Map.js",
-      "src/NonStaticObject.js"
+      "src/NonStaticObject.js",
+      "src/Function.js"
 
     ]
 }
