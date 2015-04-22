@@ -67,7 +67,7 @@ var Map =cc.Node.extend({
                     this.addToObjectAndMonster(new MonsterAlternatedLeft(c * 50, (this.height - r - 1) * 50, this));
                 }
                 else if(currentCell == "U"){
-                    this.addToObjectAndMonster(new MonsterUp(c * 50, (this.height - r - 1) * 50, this));
+                    this.addToObjectAndMonster(new MonsterY(c * 50, (this.height - r - 1) * 50, this));
                 }
               }
          }

@@ -103,12 +103,12 @@ var MonsterLeft = Monster.extend({
     }
 });
 
-var MonsterUp = Monster.extend({
+var MonsterY = Monster.extend({
     ctor:function(x,y,map){
         this._super(x,y,map);
         this.newX = y;
-        this.moveLeft = true;
-        //this.moveRight = true;
+        console.log(this.moveRight);
+        console.log(this.moveLeft);
     },
     updateSpritePosition:function(){
         this.setPositionY(Math.round(this.newX));
@@ -141,8 +141,6 @@ var MonsterUp = Monster.extend({
                 this.newX= topBlock.getTopY();
                 this.vy =0;
                 console.log("top");
-                this.moveRight =true;
-                this.moveLeft = false;
             }
         }
         else{
@@ -151,8 +149,6 @@ var MonsterUp = Monster.extend({
                 this.newX= bottomblock.getBottomY()-this.getRect().height;
                 this.vy =0;
                 console.log("bottom");
-                this.moveRight =false;
-                this.moveLeft = true;
             }
         }
     },
@@ -185,5 +181,68 @@ var MonsterUp = Monster.extend({
 
     leftCollisionSetPositionX:function(leftBlock){
         this.newX +=(this.vx+this.accX+1);
+    },
+});
+
+var MonsterUp = MonsterY.extend({
+    ctor:function(x,y,map){
+        this._super(x,y,map);
+        this.newX = y;
+        //this.moveLeft = true;
+        this.moveRight = true;
+    },
+});
+
+var MonsterDown = MonsterY.extend({
+    ctor:function(x,y,map){
+        this._super(x,y,map);
+        this.newX = y;
+        this.moveLeft = true;
+        //this.moveRight = true;
+    },
+});
+
+var MonsterYAlternated = MonsterY.extend({
+    handleCollisionY:function(oldRect,newRect){
+        this.ground=null;
+        if(this.vx<=0){
+            var topBlock = this.findTopBlock(this.blocks,oldRect, newRect);
+            if(topBlock){
+                this.ground = topBlock;
+                this.newX= topBlock.getTopY();
+                this.vy =0;
+                console.log("top");
+                this.moveRight =true;
+                this.moveLeft = false;
+            }
+        }
+        else{
+            var bottomblock = this.findBottomBlock(this.blocks,oldRect, newRect);
+            if(bottomblock){
+                this.newX= bottomblock.getBottomY()-this.getRect().height;
+                this.vy =0;
+                console.log("bottom");
+                this.moveRight =false;
+                this.moveLeft = true;
+            }
+        }
+    },
+});
+
+var MonsterYAlternatedUp = MonsterYAlternated.extend({
+    ctor:function(x,y,map){
+        this._super(x,y,map);
+        this.newX = y;
+        //this.moveLeft = true;
+        this.moveRight = true;
+    },
+});
+
+var MonsterYAlternatedDown = MonsterYAlternated.extend({
+    ctor:function(x,y,map){
+        this._super(x,y,map);
+        this.newX = y;
+        this.moveLeft = true;
+        //this.moveRight = true;
     },
 });
