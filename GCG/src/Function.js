@@ -19,7 +19,11 @@ var GetLeftX = function(){
 
 var HitTop= function(oldRect, newRect){
     var brect = this.getBoundingBoxToWorld();
-
+    if(oldRect.y>brect.y&&oldRect.y<brect.y+50){
+        if(oldRect.x>brect-50&&oldRect.x<brect.x+50){
+            return true;
+        }
+    }
     if(cc.rectGetMinY(oldRect)>= cc.rectGetMaxY(brect)){
         var loweredNewRect = cc.rect(newRect.x,newRect.y-1,newRect.width,newRect.height+1);
         var uRect = cc.rectUnion(oldRect,loweredNewRect);
@@ -31,7 +35,11 @@ var HitTop= function(oldRect, newRect){
 
 var HitBottom=function(oldRect,newRect){
     var brect = this.getBoundingBoxToWorld();
-
+    if(oldRect.y>brect.y&&oldRect.y<brect.y+50){
+        if(oldRect.x>brect-50&&oldRect.x<brect.x+50){
+            return true;
+        }
+    }
     if(cc.rectGetMaxY(oldRect)>= cc.rectGetMinY(brect)){
         var upedNewRect = cc.rect(oldRect.x,newRect.y,newRect.width,newRect.height+1);
         var uRect = cc.rectUnion(oldRect,upedNewRect);
@@ -49,7 +57,7 @@ var HitBottom=function(oldRect,newRect){
 
 var HitRight=function(oldRect,newRect){
     var brect = this.getBoundingBoxToWorld();
-    if(oldRect.x>=brect.x&&oldRect.x<=brect.x+50){
+    if(oldRect.x>brect.x&&oldRect.x<brect.x+50){
         if(oldRect.y>brect.y-50&&oldRect.y<brect.y+50) {
             //console.log(oldRect.x+" "+brect.x);
             return true;
@@ -60,7 +68,7 @@ var HitRight=function(oldRect,newRect){
 
 var HitLeft=function(oldRect,newRect){
     var brect = this.getBoundingBoxToWorld();
-    if(oldRect.x+50>=brect.x&&oldRect.x+50<=brect.x+50){
+    if(oldRect.x+50>brect.x&&oldRect.x+50<brect.x+50){
         if(oldRect.y>brect.y-50&&oldRect.y<brect.y+50) {
             // console.log(oldRect.x-brect.x);
             return true;

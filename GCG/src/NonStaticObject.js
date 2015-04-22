@@ -107,8 +107,6 @@ var MonsterY = Monster.extend({
     ctor:function(x,y,map){
         this._super(x,y,map);
         this.newX = y;
-        console.log(this.moveRight);
-        console.log(this.moveLeft);
     },
     updateSpritePosition:function(){
         this.setPositionY(Math.round(this.newX));
@@ -140,7 +138,6 @@ var MonsterY = Monster.extend({
                 this.ground = topBlock;
                 this.newX= topBlock.getTopY();
                 this.vy =0;
-                console.log("top");
             }
         }
         else{
@@ -148,7 +145,6 @@ var MonsterY = Monster.extend({
             if(bottomblock){
                 this.newX= bottomblock.getBottomY()-this.getRect().height;
                 this.vy =0;
-                console.log("bottom");
             }
         }
     },
@@ -211,7 +207,6 @@ var MonsterYAlternated = MonsterY.extend({
                 this.ground = topBlock;
                 this.newX= topBlock.getTopY();
                 this.vy =0;
-                console.log("top");
                 this.moveRight =true;
                 this.moveLeft = false;
             }
@@ -221,7 +216,6 @@ var MonsterYAlternated = MonsterY.extend({
             if(bottomblock){
                 this.newX= bottomblock.getBottomY()-this.getRect().height;
                 this.vy =0;
-                console.log("bottom");
                 this.moveRight =false;
                 this.moveLeft = true;
             }
