@@ -81,6 +81,7 @@ var MonsterAlternatedRight = MonsterAlternated.extend({
         this.moveRight=true;
     }
 });
+
 var MonsterAlternatedLeft = MonsterAlternated.extend({
     ctor:function(x,y,map){
         this._super(x,y,map);
@@ -94,9 +95,95 @@ var MonsterRight = Monster.extend({
         this.moveRight=true;
     }
 });
+
 var MonsterLeft = Monster.extend({
     ctor:function(x,y,map){
         this._super(x,y,map);
         this.moveLeft=true;
     }
+});
+
+var MonsterUp = Monster.extend({
+    ctor:function(x,y,map){
+        this._super(x,y,map);
+        this.newX = y;
+        this.moveLeft = true;
+        //this.moveRight = true;
+    },
+    updateSpritePosition:function(){
+        this.setPositionY(Math.round(this.newX));
+    },
+    initMaxVx:function(){
+        this.maxVx=2;
+    },
+
+    updateYMovement:function(){
+        //if(this.ground){
+        //    this.vy=0;
+        //
+        //    if(this.jump){
+        //        this.vy=this.jumpV;
+        //        this.y=this.ground.getTopY()+this.vy;
+        //        this.ground = null;
+        //    }
+        //}else{
+        //    this.vy +=this.g;
+        //    this.y+=this.vy;
+        //}
+    },
+
+    handleCollisionY:function(oldRect,newRect){
+        this.ground=null;
+        if(this.vx<=0){
+            var topBlock = this.findTopBlock(this.blocks,oldRect, newRect);
+            if(topBlock){
+                this.ground = topBlock;
+                this.newX= topBlock.getTopY();
+                this.vy =0;
+                console.log("top");
+                this.moveRight =true;
+                this.moveLeft = false;
+            }
+        }
+        else{
+            var bottomblock = this.findBottomBlock(this.blocks,oldRect, newRect);
+            if(bottomblock){
+                this.newX= bottomblock.getBottomY()-this.getRect().height;
+                this.vy =0;
+                console.log("bottom");
+                this.moveRight =false;
+                this.moveLeft = true;
+            }
+        }
+    },
+    handleCollisionX:function(oldRect,newRect){
+        //if(this.vx<=0){
+        //    this.leftSilde=null;
+        //    var rightBlock = this.findBottomBlock(this.blocks,oldRect,newRect);
+        //    if(rightBlock){
+        //        this.rightCollisionSetPositionX(rightBlock);
+        //
+        //        //console.log(rightBlock.getRightX());
+        //        this.vx=0;
+        //    }
+        //}
+        //else{
+        //    this.rightSilde=null;
+        //    var leftBlock = this.findTopBlock(this.blocks,oldRect,newRect);
+        //    if(leftBlock){
+        //        // console.log(this.newX);
+        //        this.leftCollisionSetPositionX(leftBlock);
+        //        //this.newX-=this.vx;
+        //        //console.log(leftBlock.getLeftX()-this.getRect().width);
+        //        this.vx=0;
+        //    }
+        //}
+    },
+    rightCollisionSetPositionX:function(rightBlock){
+        this.newX +=this.vx-(this.accX+1);
+    },
+
+    leftCollisionSetPositionX:function(leftBlock){
+        this.newX +=(this.vx+this.accX+1);
+    },
 });
