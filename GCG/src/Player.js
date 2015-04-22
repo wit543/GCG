@@ -8,12 +8,15 @@ var Player = MoveAbleObject.extend({
             this[Player.KEYMAP[keyCode]]=true;
         }
     },
+
     initLive: function () {
         this.live = 1;
     },
+
     initImgae:function(){
         this.initWithFile("res/images/player.png");
     },
+
     handleCollisionExtended:function(){
         this.map.monsters.forEach(function(b){
             if(b.hit(this)){
@@ -21,6 +24,7 @@ var Player = MoveAbleObject.extend({
             }
         },this);
     },
+
     handleKeyUp: function (keyCode) {
         if(Player.KEYMAP[keyCode]!=undefined){
             this[Player.KEYMAP[keyCode]]=false;

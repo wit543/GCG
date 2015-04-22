@@ -38,22 +38,24 @@ var Map =cc.Node.extend({
                     //    ".......................#############",
                     //    "...................................",
 
-                    ];
-                this.initMaze();
-            },
-            initMaze:function() {
-                for (var r = 0; r < this.MAP.length; r++) {
-                    for (var c = 0; c < this.MAP[0].length; c++) {
-                        var currentCell = this.MAP[r][c];
-                        if (currentCell == "#") {
-                            this.addToMap(new Polegon(c * 50, (this.height - r - 1) * 50, c * 50 + 50, (this.height - r - 1) * 50 + 50));
-                        }
-                        else if (currentCell == "F") {
-                            this.addChild(new Flag(c*50,(this.height-r-1)*50));
-                        }
-                    }
+        ];
+        this.initMaze();
+    },
+
+    initMaze:function() {
+        for (var r = 0; r < this.MAP.length; r++) {
+            for (var c = 0; c < this.MAP[0].length; c++) {
+                var currentCell = this.MAP[r][c];
+                if (currentCell == "#") {
+                    this.addToMap(new Polegon(c * 50, (this.height - r - 1) * 50, c * 50 + 50, (this.height - r - 1) * 50 + 50));
                 }
-            },
+                else if (currentCell == "F") {
+                    this.addChild(new Flag(c*50,(this.height-r-1)*50));
+                }
+            }
+        }
+    },
+
     addMovingObject:function(){
         for (var r = 0; r < this.MAP.length; r++) {
             for (var c = 0; c < this.MAP[0].length; c++) {
@@ -67,14 +69,17 @@ var Map =cc.Node.extend({
               }
          }
     },
+
     addToMap:function(object){
         this.blocks.push(object);
         this.addChild(object);
     },
+
     addToMonsters:function(monster){
         this.addChild(monster);
         this.blocks.push(monster);
     },
+
     addToObjectAndMonster:function(object){
         this.addChild(object);
         this.blocks.push(object);

@@ -7,18 +7,11 @@ var GameLayer = cc.LayerColor.extend({
         this._super(new cc.Color(127,127,127));
         this.setPosition(new cc.Point(0,0));
         this.createBlocks();
-        //console.log(test.getPosition());
         this.player = new Player(200,600,this.map);
         this.addChild(this.player);
         this.player.scheduleUpdate();
         this.addKeyboardHandlers();
         this.addMouseHandlers();
-        //this.addChild(new Polegon(190,200,50,50));
-        //this.addChild(new Polegon(205,215,50,50));
-        //this.addChild(new Polegon(190,200,50,66));
-        //this.addChild(new Polegon(149,200,48,49));
-        //this.monster = new Monster(500,500,this.map);
-        //this.addChild(this.monster);
 
         this.availableBlock = 10;
         this.map.addMovingObject();
@@ -27,12 +20,14 @@ var GameLayer = cc.LayerColor.extend({
 
         return true;
     },
+
     initLabel:function(){
         this.availableBlockLabel = cc.LabelTTF.create( '0', 'Arial', 40 );
         this.availableBlockLabel.setPosition( new cc.Point( 750, 550 ) );
         this.addChild( this.availableBlockLabel );
         this.availableBlockLabel.setString(this.availableBlock);
     },
+
     update:function(){
         if(!CollisionDetection.checkCollision(this.player,this.pol)){
             this.player.canMove=false;
@@ -40,9 +35,11 @@ var GameLayer = cc.LayerColor.extend({
         //this.moveMap();
         this.updateLabel();
     },
+
     updateLabel:function(){
         this.availableBlockLabel.setString(this.availableBlock);
     },
+
     createBlocks:function(){
         this.map = new Map();
         this.blocks=this.map.blocks;
@@ -69,12 +66,11 @@ var GameLayer = cc.LayerColor.extend({
             }
         }, this);
     },
+
     addObject:function(x,y){
         if(this.availableBlock>0) {
             var poly = new Polegon((-this.map.x)+x, this.map.y+y, (-this.map.x)+x+50, this.map.y+y+50);
             poly.setAnchorPoint(.5,.5);
-            //console.log(poly.x+" "+poly.y);
-            //console.log(this.map.x+"   "+this.map.y);
             this.blocks.push(poly);
             this.map.addChild(poly);
             this.availableBlock--;

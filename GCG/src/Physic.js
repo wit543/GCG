@@ -29,6 +29,7 @@ var CollisionDetection ={
         }
         return false;
     },
+
     collision:function(otherX,otherY,colPoint){
         var posX=colPoint[0];
         var signX=colPoint[1];
@@ -61,14 +62,17 @@ var CollisionDetection ={
         }
         return false;
     },
+
     checkCollision:function(posX1,signX1,posY1,signY1,posX2,signX2,posY2,signY2){
 
     },
+
     checkEachCollision:function(pos1,pos2,sign2){
         if(sign2){
 
         }
     },
+
     getQuadrilateralsColisionPoint:function(object){
         var size = object.size;
         var x = object.getPositionX();

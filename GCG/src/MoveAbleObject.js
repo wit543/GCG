@@ -291,7 +291,6 @@ var MoveAbleObject =  cc.Sprite.extend({
 
     setMap:function(map){
         this.map = map;
-        //console.log(map.blocks)
         this.blocks = this.map.blocks;
     }
 });
