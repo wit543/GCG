@@ -41,6 +41,13 @@ var Monster = MoveAbleObject.extend({
 
     hit: function (player) {
         var Mrect = this.getBoundingBoxToWorld();
+        if(this.hitTop(player,player)){
+            this.ground = null;
+            this.handleCollisionY=function(){
+
+            };
+        }
+
         if(player.x>=Mrect.x&&player.x<=Mrect.x+50||player.x+50>=Mrect.x&&player.x+50<=Mrect.x+50){
             if(player.y>Mrect.y-50&&player.y<Mrect.y+50) {
                 return true;

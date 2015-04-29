@@ -12,7 +12,8 @@ var Polegon = cc.Sprite.extend({
         this.hitBottom=HitBottom;
         this.hitLeft=HitLeft;
         this.hitRight=HitRight;
-    },
+        this.scheduleUpdate();
+    }
 
 });
 
